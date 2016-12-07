@@ -20,3 +20,17 @@ export const skip = (interval, {currentSongList, currentSong}) => {
   const next = currentSongList[idx];
   return [next, currentSongList];
 };
+
+export const convertSongtoStations = function (songs) {
+  const genreObj = {};
+
+  songs.map((song) => {
+    if (genreObj[song.genre]) {
+      genreObj[song.genre].push(song);
+    } else {
+      genreObj[song.genre] = [song];
+    }
+  })
+
+  return genreObj;
+}
