@@ -4,8 +4,8 @@ import Artists from '../components/Artists';
 
 class FilterableArtistsClass extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       inputValue: ''
     };
@@ -19,9 +19,11 @@ class FilterableArtistsClass extends React.Component {
   }
 
   render() {
+    console.log('props', this.props);
+    console.log('state', this.state);
 
     const inputValue = this.state.inputValue;
-    const filteredArtists = this.state.list.filter(artist => artist.name.match(inputValue));
+    const filteredArtists = this.props.list.filter(artist => artist.name.match(inputValue));
 
     return (
       <div>

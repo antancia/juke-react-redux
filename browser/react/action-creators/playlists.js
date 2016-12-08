@@ -79,7 +79,8 @@ export const addSongToPlaylist = (playlistId, songId) => {
 
         dispatch(receivePlaylist(newSelectedPlaylist));
 
-      });
+      })
+      .catch(err);
 
   };
 

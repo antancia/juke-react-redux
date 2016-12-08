@@ -7,10 +7,10 @@ import {connect} from 'react-redux';
 const mapStateToProps = (state, ownProps) => {
   return Object.assign(
     {
-      selectedArtist: state.artists.selected,
       children: ownProps.children.props.children
     },
-    state.player
+    state.player,
+    state.artists
   )
 }
 
