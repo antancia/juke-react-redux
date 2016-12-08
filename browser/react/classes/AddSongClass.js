@@ -22,7 +22,8 @@ class AddSongClass extends React.Component {
 
   checkSongIdExists (songId, playlistSongs) {
     playlistSongs.forEach(song => {
-      if (song.id === songId) {
+
+      if (song.id.toString() === songId) {
         this.setState({error: true});
       }
     })
@@ -32,18 +33,12 @@ class AddSongClass extends React.Component {
 
     evt.preventDefault();
 
-    console.log(this.props);
     const playlistId = this.props.playlists.id;
     const songId = this.state.songId;
     const playlistSongs = this.props.playlists.songs;
 
     this.checkSongIdExists(songId, playlistSongs);
     this.props.assignSongToPlaylist(playlistId, songId);
-
-    console.log(this.state);
-
-    // store.dispatch(addSongToPlaylist(playlistId, songId))
-    //   .catch(() => this.setState({ error: true }));
 
   }
 
