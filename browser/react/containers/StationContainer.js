@@ -8,17 +8,18 @@ const makeSongsNice = ((songs, ownProps) => {
   const genreSongs = convertSongtoStations(songs)[genre];
 
   return genreSongs.map(function(song){
-    convertSong(song)
+    return convertSong(song);
   })
 })
 
 
 const mapStateToProps = (state, ownProps) => {
+
   return {
     genre: ownProps.params.genreName,
     songs: makeSongsNice(state.songs, ownProps),
-    currentSong: state.currentSong,
-    isPlaying: state.isPlaying
+    currentSong: state.player.currentSong,
+    isPlaying: state.player.isPlaying
   };
 
 }

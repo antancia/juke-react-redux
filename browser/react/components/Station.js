@@ -25,7 +25,6 @@ import Songs from './Songs';
 export default function (props) {
   return (
     <div>
-    {console.log(props)}
       <h3>{props.genre} Station </h3>
       <Songs
         songs={props.songs}

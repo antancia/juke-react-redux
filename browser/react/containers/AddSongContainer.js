@@ -1,67 +1,81 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import AddSong from '../components/AddSong';
 import store from '../store';
 import {loadAllSongs, addSongToPlaylist} from '../action-creators/playlists';
+import AddSongClass from '../classes/AddSongClass';
 
-class AddSongContainer extends React.Component {
+// class AddSongContainer extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = Object.assign({
-      songId: 1,
-      error: false
-    }, store.getState());
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+//   constructor(props) {
+//     super(props);
+//     this.state = Object.assign({
+//       songId: 1,
+//       error: false
+//     }, store.getState());
+//     this.handleChange = this.handleChange.bind(this);
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//   }
 
-  componentDidMount() {
+//   componentDidMount() {
 
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState());
-    });
+//     this.unsubscribe = store.subscribe(() => {
+//       this.setState(store.getState());
+//     });
+//   }
 
-    store.dispatch(loadAllSongs());
+//   componentWillUnmount() {
+//     this.unsubscribe();
+//   }
 
-  }
+//   handleChange(evt) {
+//     this.setState({
+//       songId: evt.target.value,
+//       error: false
+//     });
+//   }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
+//   handleSubmit(evt) {
 
-  handleChange(evt) {
-    this.setState({
-      songId: evt.target.value,
-      error: false
-    });
-  }
+//     evt.preventDefault();
 
-  handleSubmit(evt) {
+//
 
-    evt.preventDefault();
+//   }
 
-    const playlistId = this.state.playlists.selected.id;
-    const songId = this.state.songId;
+//   render() {
 
-    store.dispatch(addSongToPlaylist(playlistId, songId))
-      .catch(() => this.setState({ error: true }));
+//     const songs = this.state.songs;
+//     const error = this.state.error;
 
-  }
+//     return (
+//       <AddSong
+//         {...this.props}
+//         songs={songs}
+//         error={error}
+//         handleChange={this.handleChange}
+//         handleSubmit={this.handleSubmit}/>
+//     );
+//   }
+// }
 
-  render() {
+// export default AddSongContainer;
 
-    const songs = this.state.songs;
-    const error = this.state.error;
+const mapStateToProps = (state, ownProps) => {
 
-    return (
-      <AddSong
-        {...this.props}
-        songs={songs}
-        error={error}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}/>
-    );
-  }
+  return {
+    songs: state.songs,
+    playlists: state.playlists.selected,
+  };
+
 }
 
-export default AddSongContainer;
+const mapDispatchToProps = function (dispatch) {
+  return {
+   assignSongToPlaylist(playlistId, songId) {
+     store.dispatch(addSongToPlaylist(playlistId, songId));
+   }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddSongClass);
